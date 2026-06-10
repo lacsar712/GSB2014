@@ -3,6 +3,7 @@ require_once 'db.php';
 require_once 'auth.php';
 require_once 'models.php';
 check_login();
+check_csrf_token();
 
 // 获取表单数据
 $id = isset($_POST['id']) ? intval($_POST['id']) : 0;
