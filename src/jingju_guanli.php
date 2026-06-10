@@ -71,6 +71,7 @@ $jieguo = get_all_jingju();
                 <span class="close" onclick="closeAddModal()">&times;</span>
             </div>
             <form action="jingju_tianjia.php" method="POST" enctype="multipart/form-data">
+                <?php echo csrf_token_field(); ?>
                 <div class="form-group">
                     <label for="mingcheng">名称</label>
                     <input type="text" id="mingcheng" name="mingcheng" required>
@@ -100,6 +101,7 @@ $jieguo = get_all_jingju();
                 <span class="close" onclick="closeEditModal()">&times;</span>
             </div>
             <form action="jingju_bianji.php" method="POST">
+                <?php echo csrf_token_field(); ?>
                 <input type="hidden" id="edit_id" name="id">
                 <div class="form-group">
                     <label for="edit_mingcheng">名称</label>
@@ -121,6 +123,12 @@ $jieguo = get_all_jingju();
             </form>
         </div>
     </div>
+
+    <!-- 删除京剧隐藏表单 -->
+    <form id="deleteForm" action="jingju_shanchu.php" method="POST" style="display: none;">
+        <?php echo csrf_token_field(); ?>
+        <input type="hidden" id="delete_id" name="id">
+    </form>
 
 <?php include 'includes/footer.php'; ?>
 
