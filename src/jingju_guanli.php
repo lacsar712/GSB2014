@@ -48,7 +48,7 @@ $jieguo = get_all_jingju();
                         <p class="jingju-description"><?php echo htmlspecialchars($jingju['jieshao']); ?></p>
                         <div class="jingju-actions">
                             <button class="edit-btn" onclick='showEditModal(<?php echo json_encode($jingju); ?>)'>编辑</button>
-                            <button class="delete-btn" onclick="confirmDelete(<?php echo $jingju['id']; ?>, '<?php echo htmlspecialchars($jingju['mingcheng']); ?>')">删除</button>
+                            <button type="button" class="delete-btn" onclick="confirmDelete(<?php echo $jingju['id']; ?>, '<?php echo htmlspecialchars($jingju['mingcheng']); ?>')">删除</button>
                         </div>
                     </div>
                 </div>
@@ -71,6 +71,7 @@ $jieguo = get_all_jingju();
                 <span class="close" onclick="closeAddModal()">&times;</span>
             </div>
             <form action="jingju_tianjia.php" method="POST" enctype="multipart/form-data">
+                <?php csrf_field(); ?>
                 <div class="form-group">
                     <label for="mingcheng">名称</label>
                     <input type="text" id="mingcheng" name="mingcheng" required>
@@ -100,6 +101,7 @@ $jieguo = get_all_jingju();
                 <span class="close" onclick="closeEditModal()">&times;</span>
             </div>
             <form action="jingju_bianji.php" method="POST">
+                <?php csrf_field(); ?>
                 <input type="hidden" id="edit_id" name="id">
                 <div class="form-group">
                     <label for="edit_mingcheng">名称</label>
@@ -121,6 +123,12 @@ $jieguo = get_all_jingju();
             </form>
         </div>
     </div>
+
+    <!-- 删除京剧表单（隐藏，由 JS 提交以携带 CSRF 令牌） -->
+    <form id="deleteForm" action="jingju_shanchu.php" method="POST" style="display:none;">
+        <?php csrf_field(); ?>
+        <input type="hidden" name="id" id="delete_id">
+    </form>
 
 <?php include 'includes/footer.php'; ?>
 

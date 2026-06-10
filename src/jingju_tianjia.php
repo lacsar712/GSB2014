@@ -3,6 +3,7 @@ require_once 'db.php';
 require_once 'auth.php';
 require_once 'models.php';
 check_login();
+verify_csrf_token();
 
 // 获取表单数据
 $mingcheng = isset($_POST['mingcheng']) ? trim($_POST['mingcheng']) : '';

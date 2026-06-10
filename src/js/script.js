@@ -40,10 +40,12 @@ function closeEditModal() {
     modal.style.display = 'none';
 }
 
-// 删除确认
+// 删除确认（通过隐藏 POST 表单提交，由服务端校验 CSRF 令牌）
 function confirmDelete(id, mingcheng) {
     if (confirm('确定要删除《' + mingcheng + '》吗？此操作不可恢复！')) {
-        window.location.href = 'jingju_shanchu.php?id=' + id;
+        const form = document.getElementById('deleteForm');
+        document.getElementById('delete_id').value = id;
+        form.submit();
     }
 }
 
