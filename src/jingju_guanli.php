@@ -29,7 +29,12 @@ $jieguo = get_all_jingju();
         <?php endif; ?>
 
         <?php if(isset($_GET['error'])): ?>
-            <div class="error-message">操作失败，请重试！</div>
+            <div class="error-message">
+                <?php 
+                    if($_GET['error'] == 'csrf') echo '请求验证失败，请刷新页面后重试！';
+                    else echo '操作失败，请重试！';
+                ?>
+            </div>
         <?php endif; ?>
 
         <div class="jingju-grid">
@@ -71,6 +76,7 @@ $jieguo = get_all_jingju();
                 <span class="close" onclick="closeAddModal()">&times;</span>
             </div>
             <form action="jingju_tianjia.php" method="POST" enctype="multipart/form-data">
+                <?php echo csrf_field(); ?>
                 <div class="form-group">
                     <label for="mingcheng">名称</label>
                     <input type="text" id="mingcheng" name="mingcheng" required>
@@ -100,6 +106,7 @@ $jieguo = get_all_jingju();
                 <span class="close" onclick="closeEditModal()">&times;</span>
             </div>
             <form action="jingju_bianji.php" method="POST">
+                <?php echo csrf_field(); ?>
                 <input type="hidden" id="edit_id" name="id">
                 <div class="form-group">
                     <label for="edit_mingcheng">名称</label>
@@ -121,6 +128,12 @@ $jieguo = get_all_jingju();
             </form>
         </div>
     </div>
+
+    <!-- 删除京剧表单 -->
+    <form id="deleteForm" action="jingju_shanchu.php" method="POST" style="display: none;">
+        <?php echo csrf_field(); ?>
+        <input type="hidden" id="delete_id" name="id">
+    </form>
 
 <?php include 'includes/footer.php'; ?>
 
