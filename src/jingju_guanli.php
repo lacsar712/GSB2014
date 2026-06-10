@@ -29,7 +29,12 @@ $jieguo = get_all_jingju();
         <?php endif; ?>
 
         <?php if(isset($_GET['error'])): ?>
-            <div class="error-message">操作失败，请重试！</div>
+            <div class="error-message">
+                <?php
+                    if($_GET['error'] == 'csrf') echo '安全验证失败，请重试！';
+                    else echo '操作失败，请重试！';
+                ?>
+            </div>
         <?php endif; ?>
 
         <div class="jingju-grid">
@@ -56,6 +61,11 @@ $jieguo = get_all_jingju();
         </div>
     </div>
 
+    <form id="deleteForm" action="jingju_shanchu.php" method="POST" style="display:none;">
+        <?php csrf_token_field(); ?>
+        <input type="hidden" name="id" id="delete_id">
+    </form>
+
     <!-- 图片放大模态框 -->
     <div id="imageModal" class="modal">
         <span class="close" onclick="closeImageModal()">&times;</span>
@@ -71,6 +81,7 @@ $jieguo = get_all_jingju();
                 <span class="close" onclick="closeAddModal()">&times;</span>
             </div>
             <form action="jingju_tianjia.php" method="POST" enctype="multipart/form-data">
+                <?php csrf_token_field(); ?>
                 <div class="form-group">
                     <label for="mingcheng">名称</label>
                     <input type="text" id="mingcheng" name="mingcheng" required>
@@ -100,6 +111,7 @@ $jieguo = get_all_jingju();
                 <span class="close" onclick="closeEditModal()">&times;</span>
             </div>
             <form action="jingju_bianji.php" method="POST">
+                <?php csrf_token_field(); ?>
                 <input type="hidden" id="edit_id" name="id">
                 <div class="form-group">
                     <label for="edit_mingcheng">名称</label>

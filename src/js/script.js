@@ -43,7 +43,8 @@ function closeEditModal() {
 // 删除确认
 function confirmDelete(id, mingcheng) {
     if (confirm('确定要删除《' + mingcheng + '》吗？此操作不可恢复！')) {
-        window.location.href = 'jingju_shanchu.php?id=' + id;
+        document.getElementById('delete_id').value = id;
+        document.getElementById('deleteForm').submit();
     }
 }
 
